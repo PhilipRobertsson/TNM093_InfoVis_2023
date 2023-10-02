@@ -44,11 +44,16 @@ function pc(data) {
 
 	// Task 5.2.1 -- Drawing the Lines
 	var foreground;
-
+	foreground = pc_svg.append("g").attr("class", "foreground").selectAll("path").data(data).enter().append("path")
+	.attr("d", drawPath);
 	
 	// Task 5.2.2 -- Drawing Axes
 	var axes;
+	axes=pc_svg.selectAll(".dimension").data(dimensions).enter().append("g");
 
+	axes.attr("class","dimension axis")
+	.attr("transform", function (d){return "translate(" + x(d) + ")";})
+	.each(function (index) {d3.select(this).call(yAxis.scale(y[index]) )} );
 	
 	// 5.2.3 -- Appending Axes Titles
 
